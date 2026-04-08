@@ -586,3 +586,5 @@ class TemporalCRF(nn.Module):
             ]
 
         return sequences
+
+# Handle empty sequences gracefully
