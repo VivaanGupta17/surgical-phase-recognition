@@ -177,10 +177,13 @@ def main() -> None:
     set_seed(config.get("seed", 42))
 
     # Device
+    if not torch.cuda.is_available():
+        logger.warning("no CUDA found — falling back to CPU, this will be slow")
     if args.device:
         device = torch.device(args.device)
     elif torch.cuda.is_available():
         device = torch.device("cuda")
+        logger.info("CUDA device: %s", torch.cuda.get_device_name(0))
     else:
         device = torch.device("cpu")
         logger.warning("CUDA not available — training on CPU (slow).")
